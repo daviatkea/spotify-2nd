@@ -1,5 +1,13 @@
 ---
-const { title, body, imgPath, imgStyle } = Astro.props;
+const { title, body, imgPath, type } = Astro.props;
+
+let imgStyle;
+
+if (type === "artist") {
+  imgStyle = "rounded";
+} else {
+  imgStyle = "";
+}
 ---
 
 <li>
@@ -67,7 +75,7 @@ const { title, body, imgPath, imgStyle } = Astro.props;
     box-shadow: var(--shadow-default);
   }
 
-  img.rounded {
+  .rounded {
     border-radius: var(--border-radius-round);
   }
 
