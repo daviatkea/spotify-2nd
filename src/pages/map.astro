@@ -7,8 +7,7 @@ const artists = await fetch(
   {
     headers: {
       Accept: "application/json",
-      apikey:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVndnRjanB0ZnhvdmRvZ3B3anltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIwODE5MzksImV4cCI6MjAyNzY1NzkzOX0.5pGx7suaXLO5B3uvy8qdcCxudJDV-PIND6JUbTdLFow",
+      apikey: import.meta.env.SUPABASE_ANON_KEY,
     },
   }
 ).then((res) => res.json());
