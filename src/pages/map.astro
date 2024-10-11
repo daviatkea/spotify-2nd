@@ -1,9 +1,41 @@
 ---
-import Card from "../components/Card.astro";
+import Playlist from "../components/Playlist.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 
-const produkter = ["Æble", "Banan", "Citron"];
+const artists = await fetch(
+  "https://egvtcjptfxovdogpwjym.supabase.co/rest/v1/artists",
+  {
+    headers: {
+      Accept: "application/json",
+      apikey:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVndnRjanB0ZnhvdmRvZ3B3anltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIwODE5MzksImV4cCI6MjAyNzY1NzkzOX0.5pGx7suaXLO5B3uvy8qdcCxudJDV-PIND6JUbTdLFow",
+    },
+  }
+).then((res) => res.json());
+console.log(artists);
 ---
 
-<ul>
-  {produkter.map((produkt) => <Card title={produkt} />)}
-</ul>
+<MainLayout>
+  <section>
+    <h1>Artists</h1>
+    {
+      artists.map((artist) => {
+        return (
+          <article>
+            <h2>{artist.name}</h2>
+            <ul>
+              {artist.socials.map((some) => {
+                return (
+                  <li>
+                    <a href={some.link}>{some.label}</a>
+                  </li>
+                );
+              })}
+            </ul>
+            <Playlist id={artist.spotify_id} />
+          </article>
+        );
+      })
+    }
+  </section>
+</MainLayout>
