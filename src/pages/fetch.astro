@@ -1,0 +1,78 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+const myData = await fetch("https://kea-alt-del.dk/t7/api/products").then(
+  (res) => res.json()
+);
+
+// console.log(myData);
+---
+
+<MainLayout>
+  <h1>Fetch</h1>
+  <p>Fetching data from an API.</p>
+  <div class="grid">
+    {
+      myData.map((product) => (
+        <a href={`/products/${product.id}`}>
+          <article>
+            <h3>{product.productdisplayname}</h3>
+            <p>{product.price}</p>
+            <img
+              src={`https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp`}
+              alt={product.productdisplayname}
+            />
+          </article>
+        </a>
+      ))
+    }
+  </div>
+  <!-- <template id="template">
+    <a href="/products/1">
+      <article>
+        <h3>Product 1</h3>
+        <p>Price 1</p>
+        <img
+          src="https://kea-alt-del.dk/t7/images/webp/640/1.webp"
+          alt="Product 1"
+        />
+      </article>
+    </a>
+  </template> -->
+</MainLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+</style>
+
+<script>
+  // const container = document.querySelector(".grid");
+  // const template = document.querySelector("#template");
+
+  // fetch("https://kea-alt-del.dk/t7/api/products")
+  //   .then((res) => res.json())
+  //   .then((myData) => {
+  //     myData.forEach((product) => {
+  //       const clone = template.content.cloneNode(true);
+
+  //       const a = clone.querySelector("a");
+  //       a.href = `/products/${product.id}`;
+
+  //       const h3 = clone.querySelector("h3");
+  //       h3.textContent = product.productdisplayname;
+
+  //       const p = clone.querySelector("p");
+  //       p.textContent = product.price;
+
+  //       const img = clone.querySelector("img");
+  //       img.src = `https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp`;
+  //       img.alt = product.productdisplayname;
+
+  //       container.appendChild(clone);
+  //     });
+  //   });
+</script>

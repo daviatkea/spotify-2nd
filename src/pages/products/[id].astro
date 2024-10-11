@@ -1,0 +1,30 @@
+---
+// @ts-nocheck
+import MainLayout from "../../layouts/MainLayout.astro";
+
+export async function getStaticPaths() {
+  const myData = await fetch("https://kea-alt-del.dk/t7/api/products").then(
+    (res) => res.json()
+  );
+
+  return myData.map((product) => ({
+    params: {
+      id: product.id,
+    },
+    props: {
+      product,
+    },
+  }));
+}
+
+const { product } = Astro.props;
+---
+
+<MainLayout>
+  <h1>{product.productdisplayname}</h1>
+  <p>{product.price}</p>
+  <img
+    src={`https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp`}
+    alt={product.productdisplayname}
+  />
+</MainLayout>
